@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-api-ingress
+  namespace: demo
+spec:
+  ingressClassName: nginx
+  defaultBackend:
+    service: ## Esperara un service tipo nodePort
+      name: my-api-svc-cip
+      port:
+        number: 80    

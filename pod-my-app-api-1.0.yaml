@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-api
+  namespace: jaav
+  labels:
+    app: my-api
+    project: jaav
+spec:
+  containers:
+  - name: my-api
+    image: dockerjaav/my-app-api
+    ports:
+    - containerPort: 8088
+    env:
+    - name: PROCESS_NAME
+      valueFrom:
+        configMapKeyRef:
+          name: cm-my-api-layer2 
+          key: PROCESS_NAME  
+    - name: BUILD_PROFILE
+      valueFrom:
+        configMapKeyRef:
+          name: cm-my-api-layer2 
+          key: BUILD_PROFILE

@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-api-layer1
+  namespace: jaav
+  labels:
+    app: my-api-layer1
+spec:
+  selector: #permite seleccionar un conjunto de objetos que cumplan las condiciones
+    # matchExpressions: 
+    #  - {key: app, operator: In, values: ["deploy-1"]}
+     matchLabels:
+       app: my-api-layer1
+  replicas: 2 #replicaset
+  strategy:
+    type: RollingUpdate # otro valor ->  Recreate (evita que el controlador actualice de forma automática)
+  template: # Plantilla que define los containers - POD
+    metadata:
+      labels:
+        app: my-api-layer1
+    spec:
+      containers:
+      # - image: nginxdemos/hello:0.2
+      - image: dockerjaav/my-app-api-client
+        name: my-api-layer1
+        env:
+        - name: PROCESS_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: cm-my-api-layer1
+              key: PROCESS_NAME
+          
+        - name: BUILD_PROFILE
+          valueFrom:
+            configMapKeyRef:
+              name: cm-my-api-layer1
+              key: BUILD_PROFILE
+ 
+        - name: ANOTHER_SERVICE
+          valueFrom:
+            configMapKeyRef:
+              name: cm-my-api-layer1
+              key: ANOTHER_SERVICE
+
+        - name: SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cm-my-api-layer1
+              key: SERVICE_URL
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+          - name: volumen-cm
+            mountPath: /etc/volumen-cm
+      volumes:
+      - name: volumen-cm
+        configMap:
+          name: cm-my-api-layer1
+        #emptyDir: {} # probar con hostpath y desplegar el pod en diferentes nodos y ve que sucede          

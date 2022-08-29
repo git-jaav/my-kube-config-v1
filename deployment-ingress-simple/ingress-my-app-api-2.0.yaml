@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-api-ingress2
+  namespace: demo
+  #annotations:
+    #kubernetes.io/ingress.class: azure/application-gateway  
+spec:
+  ingressClassName: azure-application-gateway
+  defaultBackend:
+    service: ## Esperara un service tipo nodePort
+      #my-api-svc #my-api-svc-cip 
+      name: my-api-svc
+      port:
+        number: 80    

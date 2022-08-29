@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-my-api-layer2
+  namespace: jaav
+data:
+  PROCESS_NAME: PROCESS_SECOND_LAYER
+  BUILD_PROFILE: "dev"
+      
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-my-api-layer1
+  namespace: jaav
+data:
+  PROCESS_NAME: PROCESS_FIRST_LAYER
+  BUILD_PROFILE: "dev"
+  ANOTHER_SERVICE: "false"
+  SERVICE_URL: http://my-api-layer2.jaav.svc.cluster.local

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-api
+  namespace: jaav
+  labels:
+    app: my-api
+spec:
+  selector: #permite seleccionar un conjunto de objetos que cumplan las condiciones
+    # matchExpressions: 
+    #  - {key: app, operator: In, values: ["deploy-1"]}
+     matchLabels:
+       app: my-api
+  replicas: 2 #replicaset
+  strategy:
+    type: RollingUpdate # otro valor ->  Recreate (evita que el controlador actualice de forma automática)
+  template: # Plantilla que define los containers - POD
+    metadata:
+      labels:
+        app: my-api
+    spec:
+      containers:
+      # - image: nginxdemos/hello:0.2
+      - image: dockerjaav/my-app-api
+        name: my-api
+        env:
+        - name: PROCESS_NAME
+          value: PROCESS_AA
+        - name: BUILD_PROFILE
+          value: "dev"    
+        ports:
+        - containerPort: 8080
+          protocol: TCP

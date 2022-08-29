@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress-layer1
+  namespace: jaav
+spec:
+  ingressClassName: nginx
+  defaultBackend:
+    service: ## Esperara un service tipo nodePort
+      name: my-api-layer1
+      port:
+        number: 80    
