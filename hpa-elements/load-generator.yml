@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-generator
+  labels:
+    app: load-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load-generator
+  template:
+    metadata:
+      name: load-generator
+      labels:
+        app: load-generator
+    spec:
+      containers:
+      - name: load-generator
+        image: busybox
+        command:
+        - /bin/sh
+        - -c
+        #- "while true; do wget -q -O- http://my-api-svc-cip.demo.svc.cluster.local/api/sys/v1/process/execute; done"        
+        #- "while true; do wget -q -O- http://my-api-layer1.jaav.svc.cluster.local/api/sys/v1/process/stack; done"
+        - "while sleep 0.01; do wget -q -O- http://my-api-layer1.jaav.svc.cluster.local/api/sys/v1/process/stack; done"

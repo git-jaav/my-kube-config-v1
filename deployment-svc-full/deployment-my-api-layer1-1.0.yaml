@@ -11,7 +11,7 @@ spec:
     #  - {key: app, operator: In, values: ["deploy-1"]}
      matchLabels:
        app: my-api-layer1
-  replicas: 2 #replicaset
+  replicas: 1 #replicaset
   strategy:
     type: RollingUpdate # otro valor ->  Recreate (evita que el controlador actualice de forma automática)
   template: # Plantilla que define los containers - POD
@@ -53,6 +53,11 @@ spec:
         volumeMounts:
           - name: volumen-cm
             mountPath: /etc/volumen-cm
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m            
       volumes:
       - name: volumen-cm
         configMap:
