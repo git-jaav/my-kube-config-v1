@@ -1,0 +1,21 @@
+# metadata:
+#   annotations:
+#     nginx.ingress.kubernetes.io/client-body-buffer-size: 250k
+#     nginx.ingress.kubernetes.io/client-header-buffer-size: 250k
+#     nginx.ingress.kubernetes.io/large_client_header_buffers: 4 250k
+#     nginx.ingress.kubernetes.io/http2-max-header-size: 250k
+#     nginx.ingress.kubernetes.io/proxy-body-size: 150m
+#     nginx.ingress.kubernetes.io/proxy-buffer-size: 250k
+#     nginx.ingress.kubernetes.io/server-snippet: |
+#       client_header_buffer_size 250k;
+#       large_client_header_buffers 4 250k;
+#   name: my-api-ingress
+data:                                               
+  allow-snippet-annotations: "true"
+  client-header-buffer-size: "100k"
+#  http2-max-field-size: "16k"
+#  http2-max-header-size: "128k"
+  large-client-header-buffers: "4 100k"
+#  proxy-buffer-size: "128k"
+#  proxy-buffers: "4 256k"
+#  proxy-busy-buffers-size: "256k"

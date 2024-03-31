@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   defaultBackend:
-    service: ## Esperara un service tipo nodePort
+    service: ## Esperara un service tipo nodePort o cluster ip
       name: my-api-svc-cip
       port:
         number: 80    
